@@ -69,8 +69,7 @@ class CollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 110),
             imageView.widthAnchor.constraint(equalToConstant: 80),
             
