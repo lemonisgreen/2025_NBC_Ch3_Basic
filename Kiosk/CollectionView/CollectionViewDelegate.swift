@@ -9,9 +9,19 @@ import UIKit
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    // 셀의 수?
+    // 셀의 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return jeontongjooList.count
+        
+        switch SegmentState(rawValue: state) {
+        case .jeontongjoo:
+            return jeontongjooList.count
+        case .wine:
+            return wineList.count
+        case .sake:
+            return sakeList.count
+        default:
+            return 0
+        }
     }
     
     // 셀에 표시될 아이템(CollectionViewCell에서 configure 메서드에 UI에 띄우는 로직을 구현해둠)
@@ -19,7 +29,19 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.id, for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
         
-        cell.configure(jeontongjooList[indexPath.item])
+        switch SegmentState(rawValue: state) {
+        case .jeontongjoo:
+            cell.configure()
+            cell.setJeontongjoo(jeontongjooList[indexPath.item])
+        case .wine:
+            cell.configure()
+            cell.setWine(wineList[indexPath.item])
+        case .sake:
+            cell.configure()
+            cell.setSake(sakeList[indexPath.item])
+        default:
+            print("Error")
+        }
         
         return cell
     }

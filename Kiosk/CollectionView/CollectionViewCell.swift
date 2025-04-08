@@ -35,7 +35,7 @@ class CollectionViewCell: UICollectionViewCell {
     var imageView = UIImageView()
     
     // UI세팅 메서드
-    func configure(_ item: Jeontongjoo) {
+    func configure() {
         
         nameLabel.font = .boldSystemFont(ofSize: 14)
         nameLabel.textColor = UIColor(named: "Sub2")
@@ -58,16 +58,6 @@ class CollectionViewCell: UICollectionViewCell {
         infoLabel.numberOfLines = 0
         
         imageView.contentMode = .scaleAspectFit
-        
-        let attributeString = NSMutableAttributedString(string: "\(item.originalPrice)원")
-        attributeString.addAttribute(.strikethroughStyle, value: 1, range: NSRange.init(location: 0, length: "\(item.originalPrice)원".count))
-        
-        nameLabel.text = item.name
-        priceLabel.text = "\(item.price)원"
-        saleLabel.text = "\(item.sale)%"
-        originalPriceLabel.attributedText = attributeString
-        infoLabel.text = item.info
-        imageView.image = UIImage(named: item.imageName)
         
         [nameLabel, priceLabel, saleLabel, originalPriceLabel, infoLabel, imageView]
             .forEach {
@@ -97,5 +87,41 @@ class CollectionViewCell: UICollectionViewCell {
             originalPriceLabel.trailingAnchor.constraint(equalTo: priceLabel.trailingAnchor),
             originalPriceLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -4)
             ])
+    }
+    
+    func setJeontongjoo(_ item: Jeontongjoo) {
+        let attributeString = NSMutableAttributedString(string: "\(item.originalPrice)원")
+        attributeString.addAttribute(.strikethroughStyle, value: 1, range: NSRange.init(location: 0, length: "\(item.originalPrice)원".count))
+        
+        nameLabel.text = item.name
+        priceLabel.text = "\(item.price)원"
+        saleLabel.text = "\(item.sale)%"
+        originalPriceLabel.attributedText = attributeString
+        infoLabel.text = item.info
+        imageView.image = UIImage(named: item.imageName)
+    }
+    
+    func setWine(_ item: Wine) {
+        let attributeString = NSMutableAttributedString(string: "\(item.originalPrice)원")
+        attributeString.addAttribute(.strikethroughStyle, value: 1, range: NSRange.init(location: 0, length: "\(item.originalPrice)원".count))
+        
+        nameLabel.text = item.name
+        priceLabel.text = "\(item.price)원"
+        saleLabel.text = "\(item.sale)%"
+        originalPriceLabel.attributedText = attributeString
+        infoLabel.text = item.info
+        imageView.image = UIImage(named: item.imageName)
+    }
+    
+    func setSake(_ item: Sake) {
+        let attributeString = NSMutableAttributedString(string: "\(item.originalPrice)원")
+        attributeString.addAttribute(.strikethroughStyle, value: 1, range: NSRange.init(location: 0, length: "\(item.originalPrice)원".count))
+        
+        nameLabel.text = item.name
+        priceLabel.text = "\(item.price)원"
+        saleLabel.text = "\(item.sale)%"
+        originalPriceLabel.attributedText = attributeString
+        infoLabel.text = item.info
+        imageView.image = UIImage(named: item.imageName)
     }
 }
