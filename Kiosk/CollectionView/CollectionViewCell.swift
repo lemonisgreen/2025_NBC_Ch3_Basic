@@ -27,7 +27,7 @@ class CollectionViewCell: UICollectionViewCell {
     
     // 셀 안에 들어갈 UI 생성
     var nameLabel = UILabel()
-    var subNameLabel = UILabel()
+//    var subNameLabel = UILabel()
     var priceLabel = UILabel()
     var saleLabel = UILabel()
     var originalPriceLabel = UILabel()
@@ -41,8 +41,8 @@ class CollectionViewCell: UICollectionViewCell {
         nameLabel.textColor = UIColor(named: "Sub2")
         nameLabel.numberOfLines = 0
         
-        subNameLabel.font = .systemFont(ofSize: 6)
-        subNameLabel.textColor = UIColor(named: "Sub2")
+//        subNameLabel.font = .systemFont(ofSize: 6)
+//        subNameLabel.textColor = UIColor(named: "Sub2")
         
         priceLabel.font = .boldSystemFont(ofSize: 12)
         priceLabel.textColor = UIColor(named: "FontColor")
