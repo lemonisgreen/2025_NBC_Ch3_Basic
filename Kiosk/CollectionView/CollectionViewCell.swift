@@ -40,23 +40,23 @@ class CollectionViewCell: UICollectionViewCell {
     func configure() {
         
         nameLabel.font = .boldSystemFont(ofSize: 14)
-        nameLabel.textColor = UIColor(named: "Sub2")
+        nameLabel.textColor = .sub2
         nameLabel.numberOfLines = 0
         
 //        subNameLabel.font = .systemFont(ofSize: 6)
-//        subNameLabel.textColor = UIColor(named: "Sub2")
+//        subNameLabel.textColor = .sub2
         
         priceLabel.font = .boldSystemFont(ofSize: 12)
-        priceLabel.textColor = UIColor(named: "FontColor")
+        priceLabel.textColor = .font
         
         saleLabel.font = .boldSystemFont(ofSize: 12)
-        saleLabel.textColor = UIColor(named: "Sub1")
+        saleLabel.textColor = .sub1
         
         originalPriceLabel.font = .systemFont(ofSize: 6)
-        originalPriceLabel.textColor = UIColor(named: "FontColor")
+        originalPriceLabel.textColor = .font
         
         infoLabel.font = .systemFont(ofSize: 10)
-        infoLabel.textColor = UIColor(named: "FontColor")
+        infoLabel.textColor = .font
         infoLabel.numberOfLines = 0
         
         imageView.contentMode = .scaleAspectFit

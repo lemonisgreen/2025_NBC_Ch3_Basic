@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     let sakeList = Sake.list
     
     // Segmented Controll을 누르면 바뀌며 collectionView를 전환하기 위한 변수
-    var state = "wine"
+    var state = "sake"
 
     override func viewDidLoad() {
         super.viewDidLoad()
