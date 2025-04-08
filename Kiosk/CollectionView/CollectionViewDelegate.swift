@@ -51,7 +51,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         
         // 하나씩 밑으로 늘어뜨린 리스트형식으로 출력되게 할 것이기 때문에 width를 cellectionView와 같게 함
         let width = collectionView.bounds.width
-        return CGSize(width: width, height: 100)
+        return CGSize(width: width, height: 110)
     }
     
     // 선택된 item을 호출할 메서드
