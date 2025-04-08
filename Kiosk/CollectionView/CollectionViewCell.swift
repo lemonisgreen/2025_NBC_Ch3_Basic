@@ -15,12 +15,14 @@ class CollectionViewCell: UICollectionViewCell {
         return id
     }
     
-    // 이거 ViewController에서 컬렉션뷰 설정할 때 쓰긴 하는데 정확하게 뭔지는 잘 모름
+    // ViewController에서 셀을 생성할 때 사용하는 초기화 메서드
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
-    // 뭔지모름,,
+    // 스토리보드에서 셀을 만들 때 호출되는 초기화 메서드
+    // 지금은 코드베이스이기 때문에 필요없음
+    // 생성하지 않으면 오류 발생하기 때문에 fatalError로 막아둠
     required init?(coder: NSCoder) {
         fatalError("Error(coder: NSCoder)")
     }

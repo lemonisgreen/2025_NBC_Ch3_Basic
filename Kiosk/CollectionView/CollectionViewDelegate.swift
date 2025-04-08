@@ -54,4 +54,20 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         return CGSize(width: width, height: 100)
     }
     
+    // 선택된 item을 호출할 메서드
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        switch SegmentState(rawValue: state) {
+        case .jeontongjoo:
+            let selectedItem = jeontongjooList[indexPath.item]
+            print(selectedItem.name)
+        case .wine:
+            let selectedItem = wineList[indexPath.item]
+            print(selectedItem.name)
+        case .sake:
+            let selectedItem = sakeList[indexPath.item]
+            print(selectedItem.name)
+        default:
+            print("Error")
+        }
+    }
 }
