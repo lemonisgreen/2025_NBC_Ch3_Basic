@@ -27,6 +27,7 @@ class CollectionViewCell: UICollectionViewCell {
     
     // 셀 안에 들어갈 UI 생성
     var nameLabel = UILabel()
+    var subNameLabel = UILabel()
     var priceLabel = UILabel()
     var saleLabel = UILabel()
     var originalPriceLabel = UILabel()
@@ -35,40 +36,47 @@ class CollectionViewCell: UICollectionViewCell {
     
     // UI세팅 메서드
     func configure(_ item: Jeontongjoo) {
-        [nameLabel, priceLabel, saleLabel, originalPriceLabel, infoLabel]
-            .forEach {
-                $0.translatesAutoresizingMaskIntoConstraints = false
-                $0.textColor = .black
-            }
         
         nameLabel.font = .boldSystemFont(ofSize: 14)
         nameLabel.textColor = UIColor(named: "Sub2")
+        nameLabel.numberOfLines = 0
+        
+        subNameLabel.font = .systemFont(ofSize: 6)
+        subNameLabel.textColor = UIColor(named: "Sub2")
         
         priceLabel.font = .boldSystemFont(ofSize: 12)
+        priceLabel.textColor = UIColor(named: "FontColor")
         
         saleLabel.font = .boldSystemFont(ofSize: 12)
         saleLabel.textColor = UIColor(named: "Sub1")
         
         originalPriceLabel.font = .systemFont(ofSize: 6)
+        originalPriceLabel.textColor = UIColor(named: "FontColor")
         
         infoLabel.font = .systemFont(ofSize: 10)
+        infoLabel.textColor = UIColor(named: "FontColor")
         infoLabel.numberOfLines = 0
         
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let attributeString = NSMutableAttributedString(string: "\(item.originalPrice)원")
+        attributeString.addAttribute(.strikethroughStyle, value: 1, range: NSRange.init(location: 0, length: "\(item.originalPrice)원".count))
         
         nameLabel.text = item.name
         priceLabel.text = "\(item.price)원"
         saleLabel.text = "\(item.sale)%"
-        originalPriceLabel.text = "\(item.originalPrice)원"
+        originalPriceLabel.attributedText = attributeString
         infoLabel.text = item.info
         imageView.image = UIImage(named: item.imageName)
         
         [nameLabel, priceLabel, saleLabel, originalPriceLabel, infoLabel, imageView]
-            .forEach { contentView.addSubview($0) }
+            .forEach {
+                $0.translatesAutoresizingMaskIntoConstraints = false
+                contentView.addSubview($0)
+            }
         
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -8),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 100),
