@@ -69,10 +69,10 @@ private extension CartViewController {
         view.addSubview(cartlabel)
         
         NSLayoutConstraint.activate([
-            cartlabel.widthAnchor.constraint(equalToConstant: 100),
             cartlabel.heightAnchor.constraint(equalToConstant: 24),
             cartlabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 491),
-            cartlabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+            cartlabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            cartlabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }
     
@@ -82,10 +82,10 @@ private extension CartViewController {
         
         // 오토레이아웃 설정
         NSLayoutConstraint.activate([
-            cartCollectionView.widthAnchor.constraint(equalToConstant: 351),
             cartCollectionView.heightAnchor.constraint(equalToConstant: 130),
             cartCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 520),
-            cartCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12)
+            cartCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            cartCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12)
         ])
     }
 }
