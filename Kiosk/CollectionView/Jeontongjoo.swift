@@ -5,7 +5,7 @@
 //  Created by 최규현 on 4/7/25.
 //
 
-struct Jeontongjoo {
+struct Jeontongjoo: AlcoholItem {
     var name: String
     var price: Int
     var sale: Int

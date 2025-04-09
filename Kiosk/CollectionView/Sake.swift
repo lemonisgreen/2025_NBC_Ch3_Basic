@@ -5,7 +5,7 @@
 //  Created by 최규현 on 4/8/25.
 //
 
-struct Sake {
+struct Sake: AlcoholItem {
     var name: String
     var price: Int
     var sale: Int
