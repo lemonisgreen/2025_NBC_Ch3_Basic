@@ -22,7 +22,6 @@ class ViewController: UIViewController {
         return label
     }()
     
-    // MARK: - 컬렉션 뷰 인스턴스 정의
     lazy var cartCollectionView: UICollectionView = {
         // 1. 셀의 배치를 정해주는 레이아웃 객체 생성
         let layout = UICollectionViewFlowLayout()
@@ -48,7 +47,7 @@ class ViewController: UIViewController {
         return collectionView
     }()
     
-    var cartItems: [String] = []
+    var cartItems: [CartItem] = [] // 장바구니 상품 저장 배열
     
     // MARK: - >>>>>>>>>>>>>>>>> 최규현 메뉴 화면 <<<<<<<<<<<<<<<<<<<<<<<<<
     
@@ -59,7 +58,7 @@ class ViewController: UIViewController {
     let sakeList = Sake.list
     
     // Segmented Controll을 누르면 바뀌며 collectionView를 전환하기 위한 변수
-    var state = "sake"
+    var state = "wine"
 }
 
 

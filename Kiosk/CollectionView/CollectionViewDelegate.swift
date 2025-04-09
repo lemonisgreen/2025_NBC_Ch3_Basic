@@ -35,8 +35,10 @@ extension ViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            let itemName = cartItems[indexPath.item]
-            cell.configure(itemName: itemName) // 셀 안에 텍스트 설정
+            let cartItem = cartItems[indexPath.item]
+            cell.configure(itemName: cartItem.item.name, quantity: cartItem.quantity)
+            
+            cell.delegate = self 
             
             // 구분선 생성 및 마지막 셀 구분선 숨김 처리
             let isLastCell = indexPath.item == cartItems.count - 1
@@ -73,23 +75,30 @@ extension ViewController: UICollectionViewDelegate {
         if collectionView == cartCollectionView {
             return
         } else {
-            var selectedItem: String?
+            var selectedItem: AlcoholItem? // 프로토콜 사용
             
             switch SegmentState(rawValue: state) {
             case .jeontongjoo:
-                selectedItem = jeontongjooList[indexPath.item].name
+                selectedItem = jeontongjooList[indexPath.item]
             case .wine:
-                selectedItem = wineList[indexPath.item].name
+                selectedItem = wineList[indexPath.item]
             case .sake:
-                selectedItem = sakeList[indexPath.item].name
+                selectedItem = sakeList[indexPath.item]
             default:
                 print("Error")
             }
             
             // 상품 선택 시, 장바구니에 상품 데이터 전송
-            if let name = selectedItem {
-                cartItems.append(name) // 장바구니에 담기
-                cartCollectionView.reloadData() // 장바구니 새로고침
+            if let selected = selectedItem {
+                // 장바구니에 같은 상품이 있는지 확인
+                if let index = cartItems.firstIndex(where: { $0.item.name == selected.name }) {
+                    cartItems[index].quantity += 1 // 수량 증가
+                } else {
+                    // 새 상품 추가
+                    let newCartItem = CartItem(item: selected, quantity: 1)
+                    cartItems.append(newCartItem)
+                }
+                cartCollectionView.reloadData()
             }
         }
     }
@@ -110,3 +119,11 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension ViewController: CartCollectionViewCellDelegate {
+    func didTapPlusButton(in cell: CartCollectionViewCell) {
+        guard let indexPath = cartCollectionView.indexPath(for: cell) else { return }
+        
+        cartItems[indexPath.item].quantity += 1
+        cartCollectionView.reloadItems(at: [indexPath])
+    }
+}
