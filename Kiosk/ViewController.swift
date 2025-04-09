@@ -60,6 +60,11 @@ class ViewController: UIViewController {
     
     // Segmented Controll을 누르면 바뀌며 collectionView를 전환하기 위한 변수
     var state = "sake"
+    
+    // MARK: - >>>>>>>>>>>>>>>>> 최규현 버튼 생성 <<<<<<<<<<<<<<<<<<<<<<<<<
+    let orderButton = UIButton()
+    let cancelButton = UIButton()
+    
 }
 
 

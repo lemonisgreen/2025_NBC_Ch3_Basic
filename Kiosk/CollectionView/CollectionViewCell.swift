@@ -36,6 +36,8 @@ class CollectionViewCell: UICollectionViewCell {
     var infoLabel = UILabel()
     var imageView = UIImageView()
     
+    var separatedView = UIView()
+    
     // UI세팅 메서드
     func configure() {
         
@@ -62,10 +64,10 @@ class CollectionViewCell: UICollectionViewCell {
         
         imageView.contentMode = .scaleAspectFit
         
-        contentView.layer.borderWidth = 0.3
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        separatedView.backgroundColor = .lightGray
         
-        [nameLabel, priceLabel, saleLabel, originalPriceLabel,infoNameLabel, infoLabel, imageView]
+        [nameLabel, priceLabel, saleLabel, originalPriceLabel,
+         infoNameLabel, infoLabel, imageView, separatedView]
             .forEach {
                 $0.translatesAutoresizingMaskIntoConstraints = false
                 contentView.addSubview($0)
@@ -93,7 +95,12 @@ class CollectionViewCell: UICollectionViewCell {
             saleLabel.bottomAnchor.constraint(equalTo: priceLabel.bottomAnchor),
             
             originalPriceLabel.trailingAnchor.constraint(equalTo: priceLabel.trailingAnchor),
-            originalPriceLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -4)
+            originalPriceLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -4),
+            
+            separatedView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            separatedView.heightAnchor.constraint(equalToConstant: 0.5),
+            separatedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
             ])
     }
     
