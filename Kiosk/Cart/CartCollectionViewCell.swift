@@ -19,6 +19,15 @@ class CartCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    let separatorView: UIView = {
+        let separatorView = UIView()
+        
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        separatorView.backgroundColor = UIColor.lightGray
+        
+        return separatorView
+    }()
+    
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,6 +37,7 @@ class CartCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         
         setItemNameLabel()
+        setSeparatorView()
     }
     
     required init?(coder: NSCoder) {
@@ -52,7 +62,19 @@ extension CartCollectionViewCell {
             itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             itemNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             itemNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 18),
-            //itemNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+    }
+    
+    func setSeparatorView() {
+        contentView.addSubview(separatorView)
+        
+        NSLayoutConstraint.activate([
+            // separatorView는 셀 맨 아래에 가로로 얇게
+            separatorView.widthAnchor.constraint(equalToConstant: 318),
+            separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            //separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2),
+            separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
 }
