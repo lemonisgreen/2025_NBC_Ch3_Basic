@@ -7,10 +7,9 @@
 
 import UIKit
 
-class CustomSegmentedcontrolViewController: UIViewController {
-    let nane = UILabel()
+class CustomSegmentedControlView: UIViewController {
     
-    private let segmentedcontrol: UISegmentedControl = {
+    private let segmentedControl: UISegmentedControl = {
         let segment = UISegmentedControl()
         
         segment.insertSegment(withTitle: "와인", at: 0, animated: true)
@@ -28,28 +27,33 @@ class CustomSegmentedcontrolViewController: UIViewController {
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .semibold)
         ], for: .selected)
         
+        //
         segment.selectedSegmentTintColor = .clear
+        segment.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
+        segment.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+        
+        segment.translatesAutoresizingMaskIntoConstraints = false
         
         return segment
     }()
-
-   
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(segmentedcontrol)
+        self.view.backgroundColor = .main
+        self.view.addSubview(segmentedControl)
         
-        func name() {
-            nane.text = "안녕하세요"
-            nane.textColor = .font
-            
-        }
-       
+        NSLayoutConstraint.activate([
+            segmentedControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            segmentedControl.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 26)
+        ])
     }
     
-
-
+    
+    
 }
