@@ -22,6 +22,18 @@ class ViewController: UIViewController {
         return label
     }()
     
+    let totalItemLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "총 0개"
+        label.textAlignment = .left
+        label.textColor = .font
+        label.font = .boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     lazy var cartCollectionView: UICollectionView = {
         // 1. 셀의 배치를 정해주는 레이아웃 객체 생성
         let layout = UICollectionViewFlowLayout()
@@ -79,7 +91,8 @@ extension ViewController {
         
         // MARK: - 명노훈 장바구니
         setUI()
-        setLabel()
+        setCartLabel()
+        setTotalItemLabel()
         setCollectionView()
     }
 }
