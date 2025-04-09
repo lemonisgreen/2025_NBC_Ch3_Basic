@@ -102,9 +102,10 @@ class CartCollectionViewCell: UICollectionViewCell {
 
 extension CartCollectionViewCell {
     // 셀 내용 설정 메소드
-    func configure(itemName: String, quantity: Int) {
+    func configure(itemName: String, quantity: Int, price: Int) {
         itemNameLabel.text = itemName
         itemCountLabel.text = "\(quantity)"
+        itemPriceLabel.text = "\(convertToCurrencyFormat(price: price * quantity))"
     }
     
     func setItemNameLabel() {

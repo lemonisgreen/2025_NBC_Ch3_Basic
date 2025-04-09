@@ -36,7 +36,7 @@ extension ViewController: UICollectionViewDataSource {
             }
             
             let cartItem = cartItems[indexPath.item]
-            cell.configure(itemName: cartItem.item.name, quantity: cartItem.quantity)
+            cell.configure(itemName: cartItem.item.name, quantity: cartItem.quantity, price: cartItem.item.price)
             
             cell.delegate = self 
             
