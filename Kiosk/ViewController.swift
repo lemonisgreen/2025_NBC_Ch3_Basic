@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         
         layout.scrollDirection = .vertical // 세로 방향 스크롤
         layout.minimumLineSpacing = 0 // 셀 사이의 간격 (줄 간격)
-        layout.itemSize = CGSize(width: 351, height: 40) // 셀 크기 설정
+        //layout.itemSize = CGSize(width: 351, height: 40) // 셀 크기 설정
         
         // 2. 컬렉션 뷰 생성
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -58,11 +58,13 @@ class ViewController: UIViewController {
     
     // Segmented Controll을 누르면 바뀌며 collectionView를 전환하기 위한 변수
     var state = "sake"
+}
 
+
+// MARK: - Lifecycle
+extension ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
         view.backgroundColor = UIColor(named: "Main")
         
         // 세팅 활성화
@@ -70,7 +72,7 @@ class ViewController: UIViewController {
         registerCollectionView()
         delegatesOn()
         
-        // 장바구니 관련 함수
+        // MARK: - 명노훈 장바구니
         setUI()
         setLabel()
         setCollectionView()
