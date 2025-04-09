@@ -35,7 +35,7 @@ extension ViewController {
         [orderButton, cancelButton]
             .forEach {
                 $0.titleLabel?.font = .boldSystemFont(ofSize: 20)
-                $0.setTitleColor(.main, for: .normal)
+                $0.setTitleColor(.white, for: .normal)
                 $0.layer.cornerRadius = 21.5
                 $0.layer.masksToBounds = true
             }
