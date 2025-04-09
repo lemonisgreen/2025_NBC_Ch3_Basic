@@ -48,6 +48,8 @@ class ViewController: UIViewController {
         return collectionView
     }()
     
+    var cartItems: [String] = []
+    
     // MARK: - >>>>>>>>>>>>>>>>> 최규현 메뉴 화면 <<<<<<<<<<<<<<<<<<<<<<<<<
     
     // collectionView 생성 및 Data를 담아둔 구조체의 인스턴스 생성

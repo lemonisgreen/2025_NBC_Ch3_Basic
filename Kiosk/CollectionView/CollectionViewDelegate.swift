@@ -10,8 +10,9 @@ import UIKit
 // MARK: - 컬렉션 뷰 데이터소스
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == cartCollectionView { // 컬렉션 뷰가 장바구니일때
-            return 5 // 아직 구현 안되서 초기값 설정
+        // 컬렉션 뷰가 장바구니일때
+        if collectionView == cartCollectionView {
+            return cartItems.count
         } else {
             switch SegmentState(rawValue: state) {
             case .jeontongjoo:
@@ -28,12 +29,18 @@ extension ViewController: UICollectionViewDataSource {
     
     // 셀에 표시될 아이템(CollectionViewCell에서 configure 메서드에 UI에 띄우는 로직을 구현해둠)
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == cartCollectionView{ // 컬렉션뷰가 장바구니일 때
+        // 컬렉션 뷰가 장바구니일때
+        if collectionView == cartCollectionView{
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartCell", for: indexPath) as? CartCollectionViewCell else {
                 return UICollectionViewCell()
             }
             
-            cell.configure(itemName: "상품 이름이 출력됩니다.") // 셀 안에 텍스트 설정
+            let itemName = cartItems[indexPath.item]
+            cell.configure(itemName: itemName) // 셀 안에 텍스트 설정
+            
+            // 구분선 생성 및 마지막 셀 구분선 숨김 처리
+            let isLastCell = indexPath.item == cartItems.count - 1
+            cell.separatorView.isHidden = isLastCell
             
             return cell // 아직 구현 안됨
         } else {
@@ -66,18 +73,23 @@ extension ViewController: UICollectionViewDelegate {
         if collectionView == cartCollectionView {
             return
         } else {
+            var selectedItem: String?
+            
             switch SegmentState(rawValue: state) {
             case .jeontongjoo:
-                let selectedItem = jeontongjooList[indexPath.item]
-                print(selectedItem.name)
+                selectedItem = jeontongjooList[indexPath.item].name
             case .wine:
-                let selectedItem = wineList[indexPath.item]
-                print(selectedItem.name)
+                selectedItem = wineList[indexPath.item].name
             case .sake:
-                let selectedItem = sakeList[indexPath.item]
-                print(selectedItem.name)
+                selectedItem = sakeList[indexPath.item].name
             default:
                 print("Error")
+            }
+            
+            // 상품 선택 시, 장바구니에 상품 데이터 전송
+            if let name = selectedItem {
+                cartItems.append(name) // 장바구니에 담기
+                cartCollectionView.reloadData() // 장바구니 새로고침
             }
         }
     }
