@@ -48,16 +48,27 @@ extension ViewController: UICollectionViewDataSource {
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.id, for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
             
+            cell.configure()
+            
             switch SegmentState(rawValue: state) {
             case .jeontongjoo:
-                cell.configure()
                 cell.setJeontongjoo(jeontongjooList[indexPath.item])
+                
+                let isLastCell = indexPath.item == jeontongjooList.count - 1
+                cell.separatedView.isHidden = isLastCell
+                
             case .wine:
-                cell.configure()
                 cell.setWine(wineList[indexPath.item])
+                
+                let isLastCell = indexPath.item == wineList.count - 1
+                cell.separatedView.isHidden = isLastCell
+                
             case .sake:
-                cell.configure()
                 cell.setSake(sakeList[indexPath.item])
+                
+                let isLastCell = indexPath.item == sakeList.count - 1
+                cell.separatedView.isHidden = isLastCell
+                
             default:
                 print("Error")
             }
