@@ -19,6 +19,17 @@ class CartCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    let minusButton: UIButton = {
+        let button = UIButton()
+        
+        button.setTitle("-", for: .normal)
+        button.setTitleColor(.font, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     let itemCountLabel: UILabel = {
         let label = UILabel()
         // 라벨 설정
@@ -39,6 +50,17 @@ class CartCollectionViewCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
+    }()
+    
+    let itemPriceLabel: UILabel = {
+        let label = UILabel()
+        // 라벨 설정
+        label.textAlignment = .right
+        label.textColor = .font
+        label.font = .systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
     }()
     
     let separatorView: UIView = {
@@ -63,10 +85,13 @@ class CartCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         
         setItemNameLabel()
+        setMinusButton()
         setItemCountLabel()
         setPlusButton()
+        setItemPriceLabel()
         setSeparatorView()
         
+        minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
     }
     
@@ -96,6 +121,19 @@ extension CartCollectionViewCell {
         ])
     }
     
+    func setMinusButton() {
+        // 셀 안에 라벨 추가
+        contentView.addSubview(minusButton)
+        
+        // 오토레이아웃 설정
+        NSLayoutConstraint.activate([
+            minusButton.widthAnchor.constraint(equalToConstant: 8),
+            minusButton.heightAnchor.constraint(equalToConstant: 18),
+            minusButton.centerYAnchor.constraint(equalTo: itemNameLabel.centerYAnchor),
+            minusButton.leadingAnchor.constraint(equalTo: itemNameLabel.trailingAnchor, constant: 16)
+        ])
+    }
+    
     func setItemCountLabel() {
         // 셀 안에 라벨 추가
         contentView.addSubview(itemCountLabel)
@@ -106,7 +144,7 @@ extension CartCollectionViewCell {
             itemCountLabel.heightAnchor.constraint(equalToConstant: 18),
             itemCountLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             itemCountLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            itemCountLabel.leadingAnchor.constraint(equalTo: itemNameLabel.trailingAnchor, constant: 28)
+            itemCountLabel.leadingAnchor.constraint(equalTo: minusButton.trailingAnchor, constant: 4)
         ])
     }
     
@@ -123,6 +161,20 @@ extension CartCollectionViewCell {
         ])
     }
     
+    func setItemPriceLabel() {
+        contentView.addSubview(itemPriceLabel)
+        
+        // 오토레이아웃 설정
+        NSLayoutConstraint.activate([
+            itemPriceLabel.widthAnchor.constraint(equalToConstant: 72),
+            itemPriceLabel.heightAnchor.constraint(equalToConstant: 18),
+            itemPriceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            itemPriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            itemPriceLabel.leadingAnchor.constraint(equalTo: plusButton.trailingAnchor, constant: 10)
+            //itemPriceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+    }
+    
     func setSeparatorView() {
         contentView.addSubview(separatorView)
         
@@ -133,6 +185,19 @@ extension CartCollectionViewCell {
             separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 1)
         ])
+    }
+    
+    // 가격에 콤마 넣기
+    func convertToCurrencyFormat(price: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 0
+        let result = numberFormatter.string(from: NSNumber(value: price)) ?? ""
+        return result
+    }
+    
+    @objc func minusButtonTapped() {
+        delegate?.didTapMinusButton(in: self)
     }
     
     @objc func plusButtonTapped() {

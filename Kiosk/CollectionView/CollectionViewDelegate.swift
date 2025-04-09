@@ -128,6 +128,17 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: 120)
         }
     }
+    
+    func didTapMinusButton(in cell: CartCollectionViewCell) {
+        guard let indexPath = cartCollectionView.indexPath(for: cell) else { return }
+        
+        if cartItems[indexPath.item].quantity > 1 {
+            cartItems[indexPath.item].quantity -= 1
+        } else {
+            cartItems.remove(at: indexPath.item)
+        }
+        cartCollectionView.reloadData()
+    }
 }
 
 extension ViewController: CartCollectionViewCellDelegate {
