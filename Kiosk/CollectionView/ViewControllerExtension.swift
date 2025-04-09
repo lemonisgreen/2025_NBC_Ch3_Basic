@@ -14,9 +14,8 @@ extension ViewController {
         
         // 컬렉션 뷰 플로우 레이아웃 세팅
         let collectionViewLayer = UICollectionViewFlowLayout()
-        collectionViewLayer.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        collectionViewLayer.minimumLineSpacing = 5
-        collectionViewLayer.minimumInteritemSpacing = 1
+//        collectionViewLayer.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        collectionViewLayer.minimumLineSpacing = 0
         
         // 이거 CollectionViewCell에서 init해줬던 frame
         let collectionView = CollectionView(frame: .zero, collectionViewLayout: collectionViewLayer)
