@@ -32,26 +32,49 @@ class CustomSegmentedControlView: UIViewController {
         segment.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
         segment.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
+        segment.addTarget(self, action: #selector(moveUnderLine), for: .valueChanged)
+        
         segment.translatesAutoresizingMaskIntoConstraints = false
         
         return segment
     }()
     
-    
+    private let underLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .sub1
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = .main
         self.view.addSubview(segmentedControl)
+        view.addSubview(underLineView)
         
         NSLayoutConstraint.activate([
             segmentedControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             segmentedControl.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 26)
+            segmentedControl.heightAnchor.constraint(equalToConstant: 26),
+            
+            underLineView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10),
+            underLineView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor),
+            underLineView.heightAnchor.constraint(equalToConstant: 2),
+            underLineView.widthAnchor.constraint(equalToConstant: 50),
+            
         ])
+    }
+    
+    @objc private func moveUnderLine(_ segment: UISegmentedControl) {
+        let movingWidth = segmentedControl.frame.width / 3
+        let xPosition = segmentedControl.frame.origin.x + (movingWidth * CGFloat(segmentedControl.selectedSegmentIndex))
+        
+        UIView.animate(withDuration: 0.2) {
+            self.underLineView.frame.origin.x = xPosition
+        }
     }
     
     
