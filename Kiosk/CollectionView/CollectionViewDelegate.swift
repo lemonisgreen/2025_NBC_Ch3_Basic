@@ -38,13 +38,14 @@ extension ViewController: UICollectionViewDataSource {
             let cartItem = cartItems[indexPath.item]
             cell.configure(itemName: cartItem.item.name, quantity: cartItem.quantity, price: cartItem.item.price)
             
-            cell.delegate = self 
+            // 셀 내부에서 발생하는 이밴트를 ViewController에 처리하라고 알려주는 역할
+            cell.delegate = self // 셀 안의 버튼 액션 이벤트 위임
             
             // 구분선 생성 및 마지막 셀 구분선 숨김 처리
             let isLastCell = indexPath.item == cartItems.count - 1
             cell.separatorView.isHidden = isLastCell
             
-            return cell // 아직 구현 안됨
+            return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.id, for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
             
@@ -128,7 +129,9 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: 120)
         }
     }
-    
+}
+
+extension ViewController: CartCollectionViewCellDelegate {
     func didTapMinusButton(in cell: CartCollectionViewCell) {
         guard let indexPath = cartCollectionView.indexPath(for: cell) else { return }
         
@@ -139,9 +142,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         }
         cartCollectionView.reloadData()
     }
-}
-
-extension ViewController: CartCollectionViewCellDelegate {
+    
     func didTapPlusButton(in cell: CartCollectionViewCell) {
         guard let indexPath = cartCollectionView.indexPath(for: cell) else { return }
         

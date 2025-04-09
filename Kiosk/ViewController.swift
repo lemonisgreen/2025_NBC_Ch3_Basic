@@ -61,6 +61,124 @@ class ViewController: UIViewController {
     
     var cartItems: [CartItem] = [] // 장바구니 상품 저장 배열
     
+    // MARK: -  >>>>>>>>>>>>>>>>> 명노훈 총 가격 <<<<<<<<<<<<<<<<<<<<<<<<<
+//    let totalPriceLabel: UILabel = {
+//        let label = UILabel()
+//        
+//        label.text = "총 금액"
+//        label.textColor = .font
+//        label.textAlignment = .left
+//        label.font = .boldSystemFont(ofSize: 20)
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        return label
+//    }()
+//    
+//    let totalPriceView: UIView = {
+//        let view = UIView()
+//        
+//        view.backgroundColor = .sub3
+//        view.layer.cornerRadius = 20
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        //view.addSubview(totalPriceLabel)
+//        
+//        return view
+//    }()
+    
+//    func makeTotoalPriceLabel() -> UILabel {
+//        let label = UILabel()
+//        
+//        label.text = "총 금액"
+//        label.textColor = .font
+//        label.textAlignment = .left
+//        label.font = .boldSystemFont(ofSize: 20)
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        
+//        
+//        return label
+//    }
+//    
+//    func makeTotalPriceView() -> UIView {
+//        let view = UIView()
+//        
+//        view.backgroundColor = .sub3
+//        view.layer.cornerRadius = 20
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        //view.addSubview(totalPriceLabel)
+//        
+//        return view
+//    }
+//    
+//    func setTotalPriceView() {
+//        let label = makeTotoalPriceLabel()
+//        let totalPriceView = makeTotalPriceView()
+//        
+//        view.addSubview(totalPriceView)
+//        
+//        totalPriceView.addSubview(label)
+//        
+//        NSLayoutConstraint.activate([
+//                label.leadingAnchor.constraint(equalTo: totalPriceView.leadingAnchor, constant: 16),
+//                label.centerYAnchor.constraint(equalTo: totalPriceView.centerYAnchor)
+//            ])
+//        
+//        
+//        NSLayoutConstraint.activate([
+//            totalPriceView.heightAnchor.constraint(equalToConstant: 46),
+//            totalPriceView.topAnchor.constraint(equalTo: cartCollectionView.bottomAnchor, constant: 16),
+//            totalPriceView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+//            totalPriceView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+//            totalPriceView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12)
+//        ])
+//    }
+    
+    
+    func makeTotalPriceView() -> UIStackView {
+        // 왼쪽 라벨
+        let titleLabel = UILabel()
+        titleLabel.text = "총 금액:"
+        titleLabel.textColor = .black
+        titleLabel.font = .boldSystemFont(ofSize: 20)
+
+        // 오른쪽 금액 라벨
+        let amountLabel = UILabel()
+        amountLabel.text = "100,000 원"
+        amountLabel.textColor = .black
+        amountLabel.font = .systemFont(ofSize: 20)
+        amountLabel.textAlignment = .right
+
+        // StackView 구성
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, amountLabel])
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        // 배경 뷰처럼 스타일 주기 위해 layer 직접 적용
+        stackView.backgroundColor = .sub3
+        stackView.layer.cornerRadius = 20
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
+
+        return stackView
+    }
+    
+    func setTotalPriceView() {
+        let totalPriceStackView = makeTotalPriceView()
+        view.addSubview(totalPriceStackView)
+
+        NSLayoutConstraint.activate([
+            totalPriceStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            totalPriceStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            totalPriceStackView.heightAnchor.constraint(equalToConstant: 46),
+            totalPriceStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+        ])
+    }
+    
     // MARK: - >>>>>>>>>>>>>>>>> 최규현 메뉴 화면 <<<<<<<<<<<<<<<<<<<<<<<<<
     
     // collectionView 생성 및 Data를 담아둔 구조체의 인스턴스 생성
@@ -94,6 +212,9 @@ extension ViewController {
         setCartLabel()
         setTotalItemLabel()
         setCollectionView()
+        
+        // MARK: - 총 금액
+        setTotalPriceView()
     }
 }
 

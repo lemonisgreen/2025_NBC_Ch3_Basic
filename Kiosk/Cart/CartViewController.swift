@@ -19,8 +19,8 @@ extension ViewController {
         NSLayoutConstraint.activate([
             cartlabel.heightAnchor.constraint(equalToConstant: 24),
             cartlabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 491),
-            cartlabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            cartlabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            cartlabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+            //cartlabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }
     
