@@ -177,5 +177,9 @@ extension ViewController {
             
             self.cartCollectionView.reloadData() // 데이터 새로고침
         }
+        
+        // MARK: - 네임라벨 추가
+        
+        addNameLabelView(to: view)
     }
 }
