@@ -29,12 +29,14 @@ class CollectionViewCell: UICollectionViewCell {
     
     // 셀 안에 들어갈 UI 생성
     var nameLabel = UILabel()
-//    var subNameLabel = UILabel()
     var priceLabel = UILabel()
     var saleLabel = UILabel()
     var originalPriceLabel = UILabel()
+    var infoNameLabel = UILabel()
     var infoLabel = UILabel()
     var imageView = UIImageView()
+    
+    var separatedView = UIView()
     
     // UI세팅 메서드
     func configure() {
@@ -42,10 +44,7 @@ class CollectionViewCell: UICollectionViewCell {
         nameLabel.font = .boldSystemFont(ofSize: 14)
         nameLabel.textColor = .sub2
         nameLabel.numberOfLines = 0
-        
-//        subNameLabel.font = .systemFont(ofSize: 6)
-//        subNameLabel.textColor = .sub2
-        
+                
         priceLabel.font = .boldSystemFont(ofSize: 12)
         priceLabel.textColor = .font
         
@@ -55,13 +54,20 @@ class CollectionViewCell: UICollectionViewCell {
         originalPriceLabel.font = .systemFont(ofSize: 6)
         originalPriceLabel.textColor = .font
         
+        infoNameLabel.font = .boldSystemFont(ofSize: 10)
+        infoNameLabel.textColor = .font
+        infoNameLabel.numberOfLines = 0
+        
         infoLabel.font = .systemFont(ofSize: 10)
         infoLabel.textColor = .font
         infoLabel.numberOfLines = 0
         
         imageView.contentMode = .scaleAspectFit
         
-        [nameLabel, priceLabel, saleLabel, originalPriceLabel, infoLabel, imageView]
+        separatedView.backgroundColor = .lightGray
+        
+        [nameLabel, priceLabel, saleLabel, originalPriceLabel,
+         infoNameLabel, infoLabel, imageView, separatedView]
             .forEach {
                 $0.translatesAutoresizingMaskIntoConstraints = false
                 contentView.addSubview($0)
@@ -76,8 +82,11 @@ class CollectionViewCell: UICollectionViewCell {
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -8),
             
-            infoLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            infoLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: 8),
+            infoNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            infoNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: 8),
+            
+            infoLabel.topAnchor.constraint(equalTo: infoNameLabel.topAnchor),
+            infoLabel.leadingAnchor.constraint(equalTo: infoNameLabel.trailingAnchor, constant: 8),
             
             priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
@@ -86,7 +95,12 @@ class CollectionViewCell: UICollectionViewCell {
             saleLabel.bottomAnchor.constraint(equalTo: priceLabel.bottomAnchor),
             
             originalPriceLabel.trailingAnchor.constraint(equalTo: priceLabel.trailingAnchor),
-            originalPriceLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -4)
+            originalPriceLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -4),
+            
+            separatedView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            separatedView.heightAnchor.constraint(equalToConstant: 0.5),
+            separatedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
             ])
     }
     
@@ -122,6 +136,7 @@ class CollectionViewCell: UICollectionViewCell {
         priceLabel.text = "\(item.price)원"
         saleLabel.text = "\(item.sale)%"
         originalPriceLabel.attributedText = attributeString
+        infoNameLabel.text = item.infoName
         infoLabel.text = item.info
         imageView.image = UIImage(named: item.imageName)
     }
