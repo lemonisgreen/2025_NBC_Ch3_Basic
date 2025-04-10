@@ -77,7 +77,8 @@ class CartCollectionViewCell: UICollectionViewCell {
     }()
     
     // MARK: - 델리게이트 패턴
-    weak var delegate: CartCollectionViewCellDelegate? // 왜 weak 쓰냐
+    // 강한 참조 순환을 예방하기 위해 weak 사용
+    weak var delegate: CartCollectionViewCellDelegate?
 
     
     // MARK: - Lifecycle

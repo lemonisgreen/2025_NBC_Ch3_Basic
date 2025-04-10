@@ -140,13 +140,13 @@ extension ViewController {
         registerCollectionView()
         delegatesOn()
         
-        // MARK: - 명노훈 장바구니
+        // MARK: - 장바구니 View 활성화
         setUI()
         setCartLabel()
         setTotalItemLabel()
         setCollectionView()
         
-        // MARK: - 총 금액
+        // MARK: - 총 금액 View 활성화
         setTotalPriceView()
     }
 }
