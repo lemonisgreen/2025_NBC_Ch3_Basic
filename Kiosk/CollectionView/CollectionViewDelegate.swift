@@ -105,10 +105,12 @@ extension ViewController: UICollectionViewDelegate {
                 // 장바구니에 같은 상품이 있는지 확인
                 if let index = cartItems.firstIndex(where: { $0.item.name == selected.name }) {
                     cartItems[index].quantity += 1 // 수량 증가
+                    calculateCartSummary() // 총수량 총금액 계산 메소드
                 } else {
                     // 새 상품 추가
                     let newCartItem = CartItem(item: selected, quantity: 1)
                     cartItems.append(newCartItem)
+                    calculateCartSummary() // 총수량 총금액 계산 메소드
                 }
                 cartCollectionView.reloadData()
             }
@@ -137,8 +139,10 @@ extension ViewController: CartCollectionViewCellDelegate {
         
         if cartItems[indexPath.item].quantity > 1 {
             cartItems[indexPath.item].quantity -= 1
+            calculateCartSummary() // 총수량 총금액 계산 메소드
         } else {
             cartItems.remove(at: indexPath.item)
+            calculateCartSummary() // 총수량 총금액 계산 메소드
         }
         cartCollectionView.reloadData()
     }
@@ -147,6 +151,7 @@ extension ViewController: CartCollectionViewCellDelegate {
         guard let indexPath = cartCollectionView.indexPath(for: cell) else { return }
         
         cartItems[indexPath.item].quantity += 1
+        calculateCartSummary() // 총수량 총금액 계산 메소드
         cartCollectionView.reloadItems(at: [indexPath])
     }
 }

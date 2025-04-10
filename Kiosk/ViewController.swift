@@ -62,96 +62,40 @@ class ViewController: UIViewController {
     var cartItems: [CartItem] = [] // 장바구니 상품 저장 배열
     
     // MARK: -  >>>>>>>>>>>>>>>>> 명노훈 총 가격 <<<<<<<<<<<<<<<<<<<<<<<<<
-//    let totalPriceLabel: UILabel = {
-//        let label = UILabel()
-//        
-//        label.text = "총 금액"
-//        label.textColor = .font
-//        label.textAlignment = .left
-//        label.font = .boldSystemFont(ofSize: 20)
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        return label
-//    }()
-//    
-//    let totalPriceView: UIView = {
-//        let view = UIView()
-//        
-//        view.backgroundColor = .sub3
-//        view.layer.cornerRadius = 20
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        //view.addSubview(totalPriceLabel)
-//        
-//        return view
-//    }()
+    // 왼쪽 총금액 표시 라벨
+    let totalAmountTitleLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "총 금액"
+        label.textColor = .font
+        label.textAlignment = .left
+        label.font = .boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
     
-//    func makeTotoalPriceLabel() -> UILabel {
-//        let label = UILabel()
-//        
-//        label.text = "총 금액"
-//        label.textColor = .font
-//        label.textAlignment = .left
-//        label.font = .boldSystemFont(ofSize: 20)
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        
-//        
-//        return label
-//    }
-//    
-//    func makeTotalPriceView() -> UIView {
-//        let view = UIView()
-//        
-//        view.backgroundColor = .sub3
-//        view.layer.cornerRadius = 20
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        //view.addSubview(totalPriceLabel)
-//        
-//        return view
-//    }
-//    
-//    func setTotalPriceView() {
-//        let label = makeTotoalPriceLabel()
-//        let totalPriceView = makeTotalPriceView()
-//        
-//        view.addSubview(totalPriceView)
-//        
-//        totalPriceView.addSubview(label)
-//        
-//        NSLayoutConstraint.activate([
-//                label.leadingAnchor.constraint(equalTo: totalPriceView.leadingAnchor, constant: 16),
-//                label.centerYAnchor.constraint(equalTo: totalPriceView.centerYAnchor)
-//            ])
-//        
-//        
-//        NSLayoutConstraint.activate([
-//            totalPriceView.heightAnchor.constraint(equalToConstant: 46),
-//            totalPriceView.topAnchor.constraint(equalTo: cartCollectionView.bottomAnchor, constant: 16),
-//            totalPriceView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
-//            totalPriceView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-//            totalPriceView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12)
-//        ])
-//    }
+    // 오른쪽 금액 라벨
+    let totalAmountLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "0 원"
+        label.textColor = .black
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
     
-    
-    func makeTotalPriceView() -> UIStackView {
-        // 왼쪽 라벨
-        let titleLabel = UILabel()
-        titleLabel.text = "총 금액:"
-        titleLabel.textColor = .black
-        titleLabel.font = .boldSystemFont(ofSize: 20)
-
-        // 오른쪽 금액 라벨
-        let amountLabel = UILabel()
-        amountLabel.text = "100,000 원"
-        amountLabel.textColor = .black
-        amountLabel.font = .systemFont(ofSize: 20)
-        amountLabel.textAlignment = .right
-
+    // 총금액 스택뷰
+    lazy var totalAmountStackView: UIStackView = {
         // StackView 구성
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, amountLabel])
+        
+        // 클로저로 생성한 객체는 미리 메모리에 올라가서 self를 못 건드림.
+        // 따라서 lazy var 로 선언해줘야됨
+        let stackView = UIStackView(arrangedSubviews: [totalAmountTitleLabel, totalAmountLabel])
+        
         stackView.axis = .horizontal
         stackView.spacing = 8
         stackView.distribution = .equalSpacing
@@ -165,19 +109,8 @@ class ViewController: UIViewController {
         stackView.layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
 
         return stackView
-    }
-    
-    func setTotalPriceView() {
-        let totalPriceStackView = makeTotalPriceView()
-        view.addSubview(totalPriceStackView)
-
-        NSLayoutConstraint.activate([
-            totalPriceStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            totalPriceStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            totalPriceStackView.heightAnchor.constraint(equalToConstant: 46),
-            totalPriceStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
-        ])
-    }
+    }()
+            
     
     // MARK: - >>>>>>>>>>>>>>>>> 최규현 메뉴 화면 <<<<<<<<<<<<<<<<<<<<<<<<<
     
