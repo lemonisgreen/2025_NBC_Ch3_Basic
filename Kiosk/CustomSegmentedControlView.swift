@@ -7,32 +7,28 @@
 
 import UIKit
 
-class CustomSegmentedControlView: UIViewController {
+class CustomSegmentedControlView: UIView {
+    
+    // MARK: - Properties
     
     private let segmentedControl: UISegmentedControl = {
-        let segment = UISegmentedControl()
+        let segment = UISegmentedControl(items: ["와인", "사케", "전통주"])
         
-        segment.insertSegment(withTitle: "와인", at: 0, animated: true)
-        segment.insertSegment(withTitle: "사케", at: 1, animated: true)
-        segment.insertSegment(withTitle: "전통주", at: 2, animated: true)
         segment.selectedSegmentIndex = 0
         
         segment.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.font.withAlphaComponent(0.7),
+            NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.7),
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .regular)
         ], for: .normal)
         
         segment.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.font,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .semibold)
+            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold)
         ], for: .selected)
         
-        //
         segment.selectedSegmentTintColor = .clear
         segment.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
         segment.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
-        
-        segment.addTarget(self, action: #selector(moveUnderLine), for: .valueChanged)
         
         segment.translatesAutoresizingMaskIntoConstraints = false
         
@@ -46,37 +42,48 @@ class CustomSegmentedControlView: UIViewController {
         return view
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var segmentChangedHandler: ((Int) -> Void)? // 상태 변경 핸들러
+    
+    // MARK: - Initialization
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        self.view.backgroundColor = .main
-        self.view.addSubview(segmentedControl)
-        view.addSubview(underLineView)
+        setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView() {
+        addSubview(segmentedControl)
+        addSubview(underLineView)
         
         NSLayoutConstraint.activate([
-            segmentedControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            segmentedControl.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            segmentedControl.centerXAnchor.constraint(equalTo: centerXAnchor),
+            segmentedControl.centerYAnchor.constraint(equalTo: centerYAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             segmentedControl.heightAnchor.constraint(equalToConstant: 26),
             
             underLineView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 1),
-            underLineView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor),
+            underLineView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor, constant: 30),
             underLineView.heightAnchor.constraint(equalToConstant: 3),
             underLineView.widthAnchor.constraint(equalToConstant: 50),
             
         ])
+        
+        segmentedControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }
     
-    @objc private func moveUnderLine(_ segment: UISegmentedControl) {
-        let movingWidth = segmentedControl.frame.width / 3
-        let xPosition = segmentedControl.frame.origin.x + (movingWidth * CGFloat(segmentedControl.selectedSegmentIndex))
+    @objc private func segmentChanged(_ segment: UISegmentedControl) {
+        lazy var movingWidth = segmentedControl.frame.width / 2.5
         
         UIView.animate(withDuration: 0.2) {
-            self.underLineView.frame.origin.x = xPosition
+            self.underLineView.frame.origin.x = movingWidth * CGFloat(segment.selectedSegmentIndex)
+            
+            self.segmentChangedHandler?(segment.selectedSegmentIndex) // 핸들러 호출
         }
     }
-    
-    
-    
 }
