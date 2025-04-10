@@ -119,8 +119,6 @@ extension CartCollectionViewCell {
         NSLayoutConstraint.activate([
             itemNameLabel.widthAnchor.constraint(equalToConstant: 168),
             itemNameLabel.heightAnchor.constraint(equalToConstant: 18),
-            itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            itemNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             itemNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 18),
         ])
     }
@@ -146,8 +144,6 @@ extension CartCollectionViewCell {
         NSLayoutConstraint.activate([
             itemCountLabel.widthAnchor.constraint(equalToConstant: 25),
             itemCountLabel.heightAnchor.constraint(equalToConstant: 18),
-            itemCountLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            itemCountLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             itemCountLabel.leadingAnchor.constraint(equalTo: minusButton.trailingAnchor, constant: 4)
         ])
     }
@@ -172,10 +168,7 @@ extension CartCollectionViewCell {
         NSLayoutConstraint.activate([
             itemPriceLabel.widthAnchor.constraint(equalToConstant: 72),
             itemPriceLabel.heightAnchor.constraint(equalToConstant: 18),
-            itemPriceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            itemPriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             itemPriceLabel.leadingAnchor.constraint(equalTo: plusButton.trailingAnchor, constant: 10)
-            //itemPriceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
     
