@@ -36,7 +36,7 @@ extension ViewController: UICollectionViewDataSource {
             }
             
             let cartItem = cartItems[indexPath.item]
-            cell.configure(itemName: cartItem.item.name, quantity: cartItem.quantity)
+            cell.configure(itemName: cartItem.item.name, quantity: cartItem.quantity, price: cartItem.item.price)
             
             cell.delegate = self 
             
@@ -127,6 +127,17 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
             let width = collectionView.bounds.width
             return CGSize(width: width, height: 120)
         }
+    }
+    
+    func didTapMinusButton(in cell: CartCollectionViewCell) {
+        guard let indexPath = cartCollectionView.indexPath(for: cell) else { return }
+        
+        if cartItems[indexPath.item].quantity > 1 {
+            cartItems[indexPath.item].quantity -= 1
+        } else {
+            cartItems.remove(at: indexPath.item)
+        }
+        cartCollectionView.reloadData()
     }
 }
 
