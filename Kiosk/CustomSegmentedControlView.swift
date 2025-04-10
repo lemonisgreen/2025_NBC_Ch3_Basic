@@ -60,9 +60,9 @@ class CustomSegmentedControlView: UIViewController {
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             segmentedControl.heightAnchor.constraint(equalToConstant: 26),
             
-            underLineView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10),
+            underLineView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 1),
             underLineView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor),
-            underLineView.heightAnchor.constraint(equalToConstant: 2),
+            underLineView.heightAnchor.constraint(equalToConstant: 3),
             underLineView.widthAnchor.constraint(equalToConstant: 50),
             
         ])
