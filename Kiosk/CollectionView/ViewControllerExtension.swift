@@ -48,7 +48,7 @@ extension ViewController {
         
         // 오토레이아웃 설정
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 169),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             collectionView.heightAnchor.constraint(equalToConstant: 310),
