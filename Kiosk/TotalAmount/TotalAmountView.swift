@@ -21,7 +21,7 @@ extension ViewController {
     
     // 총 금액 업데이트 메소드
     func updateTotalPrice(to newPrice: Int) {
-        totalAmountLabel.text = "\(convertToCurrencyFormat(price: newPrice))"
+        totalAmountLabel.text = "\(convertToCurrencyFormat(price: newPrice)) 원"
     }
 
     // 총 수량 업데이트 메소드
