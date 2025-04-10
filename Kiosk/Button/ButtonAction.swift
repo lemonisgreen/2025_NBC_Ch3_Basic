@@ -18,6 +18,7 @@ extension ViewController {
 //            self.cartItems.forEach { orderHistory.append($0) }
             
             self.cartItems = []
+            self.calculateCartSummary()
             self.cartCollectionView.reloadData()
             self.present(successAlert, animated: true)
             
@@ -40,6 +41,7 @@ extension ViewController {
         
         let yesAction = UIAlertAction(title: "네", style: .default) { _ in
             self.cartItems = []
+            self.calculateCartSummary()
             self.cartCollectionView.reloadData()
         }
         
