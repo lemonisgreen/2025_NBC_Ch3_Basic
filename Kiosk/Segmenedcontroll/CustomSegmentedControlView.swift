@@ -42,6 +42,8 @@ class CustomSegmentedControlView: UIView {
         return view
     }()
     
+    private var underLineLeadingConstraint: NSLayoutConstraint! // 언더바 leading 제약 조건
+    
     var segmentChangedHandler: ((Int) -> Void)? // 상태 변경 핸들러
     
     // MARK: - Initialization
@@ -66,24 +68,32 @@ class CustomSegmentedControlView: UIView {
             segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             segmentedControl.heightAnchor.constraint(equalToConstant: 26),
-            
+        ])
+        
+        underLineLeadingConstraint = underLineView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor, constant: 33)
+        
+        NSLayoutConstraint.activate([
             underLineView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 1),
-            underLineView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor, constant: 30),
-            underLineView.heightAnchor.constraint(equalToConstant: 3),
+            underLineLeadingConstraint,
             underLineView.widthAnchor.constraint(equalToConstant: 50),
-            
+            underLineView.heightAnchor.constraint(equalToConstant: 3)
         ])
         
         segmentedControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }
     
-    @objc private func segmentChanged(_ segment: UISegmentedControl) {
-        lazy var movingWidth = segmentedControl.frame.width / 2.5
+    // MARK: - Action
+    
+    @objc private func segmentChanged(_ sender: UISegmentedControl) {
+        let segmentWidth = segmentedControl.frame.width / CGFloat(segmentedControl.numberOfSegments)
+        let newLeadingConstant = (segmentWidth * CGFloat(sender.selectedSegmentIndex)) + (segmentWidth - 50) / 2
+        
+        underLineLeadingConstraint.constant = newLeadingConstant
         
         UIView.animate(withDuration: 0.2) {
-            self.underLineView.frame.origin.x = movingWidth * CGFloat(segment.selectedSegmentIndex)
-            
-            self.segmentChangedHandler?(segment.selectedSegmentIndex) // 핸들러 호출
+            self.layoutIfNeeded()
         }
+        
+        segmentChangedHandler?(sender.selectedSegmentIndex)
     }
 }
