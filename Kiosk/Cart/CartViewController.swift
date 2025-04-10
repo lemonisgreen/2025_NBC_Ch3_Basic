@@ -24,6 +24,7 @@ extension ViewController {
         ])
     }
     
+    // MARK: - 총 수량 라벨 오토 레이아웃
     func setTotalItemLabel() {
         view.addSubview(totalItemLabel)
         
