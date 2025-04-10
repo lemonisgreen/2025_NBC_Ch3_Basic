@@ -36,15 +36,16 @@ extension ViewController: UICollectionViewDataSource {
             }
             
             let cartItem = cartItems[indexPath.item]
-            cell.configure(itemName: cartItem.item.name, quantity: cartItem.quantity)
+            cell.configure(itemName: cartItem.item.name, quantity: cartItem.quantity, price: cartItem.item.price)
             
-            cell.delegate = self 
+            // 셀 내부에서 발생하는 이밴트를 ViewController에 처리하라고 알려주는 역할
+            cell.delegate = self // 셀 안의 버튼 액션 이벤트 위임
             
             // 구분선 생성 및 마지막 셀 구분선 숨김 처리
             let isLastCell = indexPath.item == cartItems.count - 1
             cell.separatorView.isHidden = isLastCell
             
-            return cell // 아직 구현 안됨
+            return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.id, for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
             
@@ -104,10 +105,12 @@ extension ViewController: UICollectionViewDelegate {
                 // 장바구니에 같은 상품이 있는지 확인
                 if let index = cartItems.firstIndex(where: { $0.item.name == selected.name }) {
                     cartItems[index].quantity += 1 // 수량 증가
+                    calculateCartSummary() // 총수량 총금액 계산 메소드
                 } else {
                     // 새 상품 추가
                     let newCartItem = CartItem(item: selected, quantity: 1)
                     cartItems.append(newCartItem)
+                    calculateCartSummary() // 총수량 총금액 계산 메소드
                 }
                 cartCollectionView.reloadData()
             }
@@ -131,10 +134,24 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ViewController: CartCollectionViewCellDelegate {
+    func didTapMinusButton(in cell: CartCollectionViewCell) {
+        guard let indexPath = cartCollectionView.indexPath(for: cell) else { return }
+        
+        if cartItems[indexPath.item].quantity > 1 {
+            cartItems[indexPath.item].quantity -= 1
+            calculateCartSummary() // 총수량 총금액 계산 메소드
+        } else {
+            cartItems.remove(at: indexPath.item)
+            calculateCartSummary() // 총수량 총금액 계산 메소드
+        }
+        cartCollectionView.reloadData()
+    }
+    
     func didTapPlusButton(in cell: CartCollectionViewCell) {
         guard let indexPath = cartCollectionView.indexPath(for: cell) else { return }
         
         cartItems[indexPath.item].quantity += 1
+        calculateCartSummary() // 총수량 총금액 계산 메소드
         cartCollectionView.reloadItems(at: [indexPath])
     }
 }
