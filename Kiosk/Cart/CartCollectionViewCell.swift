@@ -19,13 +19,15 @@ class CartCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let minusButton: UIButton = {
+    lazy var minusButton: UIButton = {
         let button = UIButton()
         
         button.setTitle("-", for: .normal)
         button.setTitleColor(.font, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -41,13 +43,15 @@ class CartCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let plusButton: UIButton = {
+    lazy var plusButton: UIButton = {
         let button = UIButton()
         
         button.setTitle("+", for: .normal)
         button.setTitleColor(.font, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -73,7 +77,8 @@ class CartCollectionViewCell: UICollectionViewCell {
     }()
     
     // MARK: - 델리게이트 패턴
-    weak var delegate: CartCollectionViewCellDelegate? // 왜 weak 쓰냐
+    // 강한 참조 순환을 예방하기 위해 weak 사용
+    weak var delegate: CartCollectionViewCellDelegate?
 
     
     // MARK: - Lifecycle
@@ -90,11 +95,9 @@ class CartCollectionViewCell: UICollectionViewCell {
         setPlusButton()
         setItemPriceLabel()
         setSeparatorView()
-        
-        minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
-        plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
     }
     
+    // 스토리보드에서 cell 생성 시 사용하는 생성자
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

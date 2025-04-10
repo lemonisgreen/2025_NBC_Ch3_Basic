@@ -22,6 +22,18 @@ class ViewController: UIViewController {
         return label
     }()
     
+    let totalItemLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "총 0개"
+        label.textAlignment = .left
+        label.textColor = .font
+        label.font = .boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     lazy var cartCollectionView: UICollectionView = {
         // 1. 셀의 배치를 정해주는 레이아웃 객체 생성
         let layout = UICollectionViewFlowLayout()
@@ -48,6 +60,57 @@ class ViewController: UIViewController {
     }()
     
     var cartItems: [CartItem] = [] // 장바구니 상품 저장 배열
+    
+    // MARK: -  >>>>>>>>>>>>>>>>> 명노훈 총 가격 <<<<<<<<<<<<<<<<<<<<<<<<<
+    // 왼쪽 총금액 표시 라벨
+    let totalAmountTitleLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "총 금액"
+        label.textColor = .font
+        label.textAlignment = .left
+        label.font = .boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    // 오른쪽 금액 라벨
+    let totalAmountLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "0 원"
+        label.textColor = .black
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    // 총금액 스택뷰
+    lazy var totalAmountStackView: UIStackView = {
+        // StackView 구성
+        
+        // 클로저로 생성한 객체는 미리 메모리에 올라가서 self를 못 건드림.
+        // 따라서 lazy var 로 선언해줘야됨
+        let stackView = UIStackView(arrangedSubviews: [totalAmountTitleLabel, totalAmountLabel])
+        
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        // 배경 뷰처럼 스타일 주기 위해 layer 직접 적용
+        stackView.backgroundColor = .sub3
+        stackView.layer.cornerRadius = 20
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
+
+        return stackView
+    }()
+            
     
     // MARK: - >>>>>>>>>>>>>>>>> 최규현 메뉴 화면 <<<<<<<<<<<<<<<<<<<<<<<<<
     
@@ -77,10 +140,14 @@ extension ViewController {
         registerCollectionView()
         delegatesOn()
         
-        // MARK: - 명노훈 장바구니
+        // MARK: - 장바구니 View 활성화
         setUI()
-        setLabel()
+        setCartLabel()
+        setTotalItemLabel()
         setCollectionView()
+        
+        // MARK: - 총 금액 View 활성화
+        setTotalPriceView()
     }
 }
 
