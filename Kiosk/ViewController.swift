@@ -101,16 +101,16 @@ class ViewController: UIViewController {
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         // 배경 뷰처럼 스타일 주기 위해 layer 직접 적용
         stackView.backgroundColor = .sub3
         stackView.layer.cornerRadius = 20
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
-
+        
         return stackView
     }()
-            
+    
     
     // MARK: - >>>>>>>>>>>>>>>>> 최규현 메뉴 화면 <<<<<<<<<<<<<<<<<<<<<<<<<
     
@@ -121,14 +121,21 @@ class ViewController: UIViewController {
     let sakeList = Sake.list
     
     // Segmented Controll을 누르면 바뀌며 collectionView를 전환하기 위한 변수
-    var state = "sake"
+    var state = "wine" {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     // MARK: - >>>>>>>>>>>>>>>>> 최규현 버튼 생성 <<<<<<<<<<<<<<<<<<<<<<<<<
     let orderButton = UIButton()
     let cancelButton = UIButton()
+    
+    
+    // MARK: - >>>>>>>>>>>>>>>>> 이정진 네임라벨 & 세그먼티드 컨트롤 <<<<<<<<<<<<<<<<<<<<
+    
+    let customSegmentedControl = CustomSegmentedControlView() // 커스텀 Segmented Control
 }
-
-
 // MARK: - Lifecycle
 extension ViewController {
     override func viewDidLoad() {
@@ -148,6 +155,27 @@ extension ViewController {
         
         // MARK: - 총 금액 View 활성화
         setTotalPriceView()
+        
+        // MARK: - 커스텀 세그먼티드 컨트롤 활성화
+        
+        setupCustomSegmentedControl(customSegmentedControl, in: view)
+        
+        // Segment Changed Handler 설정
+        customSegmentedControl.segmentChangedHandler = { [weak self] selectedIndex in
+            guard let self = self else { return }
+            
+            switch selectedIndex {
+            case 0:
+                self.state = "wine"
+            case 1:
+                self.state = "sake"
+            case 2:
+                self.state = "jeontongjoo"
+            default:
+                break
+            }
+            
+            self.cartCollectionView.reloadData() // 데이터 새로고침
+        }
     }
 }
-
