@@ -16,10 +16,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
+        window.overrideUserInterfaceStyle = .light
         let vc = ViewController()
-        window.rootViewController = vc
-        self.window = window
+        let launchVC = LaunchViewController()
+        
+        window.rootViewController = launchVC
         window.makeKeyAndVisible()
+        self.window = window
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+//            let navigationController = UINavigationController(rootViewController: vc)
+//            self.window?.rootViewController = navigationController
+            
+            self.window?.rootViewController = vc
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
